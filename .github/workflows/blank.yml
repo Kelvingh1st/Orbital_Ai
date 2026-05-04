@@ -1,0 +1,21 @@
+name: Build Orbital APK
+on:
+  push:
+    branches: [ main ] # Runs every time you save/push
+  workflow_dispatch: # Allows you to start it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build apk --debug # Debug is faster for testing
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: orbital-app
+          path: build/app/outputs/flutter-apk/app-debug.apk
