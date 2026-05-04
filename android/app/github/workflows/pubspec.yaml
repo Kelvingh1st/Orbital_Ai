@@ -1,0 +1,9 @@
+name: orbital_ai
+dependencies:
+  flutter:
+      sdk: flutter
+        firebase_core: ^3.0.0
+          firebase_vertexai: ^0.2.0
+            speech_to_text: ^6.6.0
+              flutter_tts: ^4.0.2
+              
