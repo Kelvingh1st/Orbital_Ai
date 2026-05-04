@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770348238720",
+    "project_id": "orbital-6a8a2",
+    "storage_bucket": "orbital-6a8a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770348238720:android:10a69957ba8bda28466365",
+        "android_client_info": {
+          "package_name": "com.syntaxlab.orbitalAi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPyWZpXcawzr_hYMZ8T1Zqp7PhAHdCniA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
