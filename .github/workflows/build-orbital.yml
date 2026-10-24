@@ -1,4 +1,4 @@
-name: Build Orbital AI for Android
+name: Build Orbital AI Frontend
 
 on:
   workflow_dispatch:
@@ -24,30 +24,13 @@ jobs:
           npm ci
           npm run build
 
-      - name: Install Build Tools & Shader Compiler
+      - name: Package Frontend Artifact
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake ninja-build glslc libshaderc-dev
+          mkdir -p output/ui-build
+          cp -r tools/ui/dist/* output/ui-build/ || cp -r tools/ui/build/* output/ui-build/ || true
 
-      - name: Compile llama-server for Android ARM64
-        run: |
-          cmake -B build \
-            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
-            -DANDROID_ABI=arm64-v8a \
-            -DANDROID_PLATFORM=android-24 \
-            -DGGML_VULKAN=ON \
-            -DBUILD_SHARED_LIBS=OFF \
-            -DLLAMA_BUILD_TESTS=OFF
-          cmake --build build --config Release -j$(nproc)
-
-      - name: Package Artifacts
-        run: |
-          mkdir -p output/bin output/ui-build
-          cp build/bin/llama-server output/bin/orbital-server || true
-          cp -r tools/ui/build/* output/ui-build/ || true
-
-      - name: Upload Build Artifact
+      - name: Upload Frontend Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: orbital-android-arm64
+          name: orbital-frontend-build
           path: output/
