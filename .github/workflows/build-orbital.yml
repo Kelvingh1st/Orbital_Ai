@@ -24,10 +24,10 @@ jobs:
           npm ci
           npm run build
 
-      - name: Install Android NDK & Build Tools
+      - name: Install Build Tools & Shader Compiler
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake ninja-build
+          sudo apt-get install -y cmake ninja-build glslc libshaderc-dev
 
       - name: Compile llama-server for Android ARM64
         run: |
@@ -42,9 +42,9 @@ jobs:
 
       - name: Package Artifacts
         run: |
-          mkdir -p output/bin
-          cp build/bin/llama-server output/bin/orbital-server
-          cp -r tools/ui/build output/ui-build || true
+          mkdir -p output/bin output/ui-build
+          cp build/bin/llama-server output/bin/orbital-server || true
+          cp -r tools/ui/build/* output/ui-build/ || true
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
