@@ -2,6 +2,8 @@ name: Build Orbital AI for Android
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -31,6 +33,7 @@ jobs:
 
       - name: Compile llama-server for Android ARM64
         run: |
+          cd bin/source/llama.cpp
           cmake -B build \
             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=arm64-v8a \
@@ -43,7 +46,7 @@ jobs:
       - name: Package Artifacts
         run: |
           mkdir -p output/bin
-          cp build/bin/llama-server output/bin/orbital-server
+          cp bin/source/llama.cpp/build/bin/llama-server output/bin/orbital-server
           cp -r tools/ui/build output/ui-build || true
 
       - name: Upload Build Artifact
@@ -51,4 +54,3 @@ jobs:
         with:
           name: orbital-android-arm64
           path: output/
-
